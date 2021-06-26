@@ -1,4 +1,4 @@
-# Run as root user after centos7 is installed.
+# After centos7 is installed, paste it into the CLI as root user and run it.
 yum update -y \
 && echo "[nginx]
 name=nginx repo
@@ -47,8 +47,15 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && systemctl enable nginx \
 && python3.6 -m pip install --upgrade pip \
 && npm install -g yarn \
+&& touch .env.ex \
 && echo "alias vim='vi'" >> ${HOME}/.bashrc \
 && echo "alias python='`which python3`'" >> ${HOME}/.bashrc \
 && echo "alias pip='`which pip3`'" >> ${HOME}/.bashrc \
 && echo "export LANG=en_US" >> ${HOME}/.bashrc \
-&& source ${HOME}/.bashrc
+&& echo "source ${HOME}/.env.ex" >> ${HOME}/.bashrc \
+&& source ${HOME}/.bashrc \
+&& git clone https://github.com/huuyafwww/home-server-settings.git \
+&& cd home-server-settings \
+&& crontab init-crontab \
+&& chmod u+x ./init-login_user.sh \
+&& ./init-login_user.sh
