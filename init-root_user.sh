@@ -60,7 +60,7 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && source ${HOME}/.bashrc \
 && yum update -y \
 && git clone https://github.com/huuyafwww/home-server-settings.git \
-&& cd home-server-settings \
+&& cd ${HOME}/home-server-settings \
 && chmod u+x ./init-login_user.sh \
 && ./init-login_user.sh \
 && chmod u+x ./init-env.sh \
