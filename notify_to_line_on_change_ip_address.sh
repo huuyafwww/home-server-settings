@@ -15,7 +15,6 @@ record_new_ipaddress(){
   echo ${new_ipaddress} > /tmp/gobal_ipaddress;
 };
 
-
 new_ipaddress=`curl -s ifconfig.io`;
 gobal_ipaddress=`cat /tmp/gobal_ipaddress`;
 

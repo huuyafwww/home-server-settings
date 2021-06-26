@@ -32,6 +32,7 @@ VNCからinit-root_user.shをペーストして実行。
 - Nginx自動起動
 - システム言語をen_USに変更（TZはデフォルトでJST
 - 自宅IP変更されたらLINEに通知するスクリプトをcronに登録
+- LINE Notify APIを利用するためのアクセストークン設定（入力値がアクセストークンとして有効なものか検証
 - エイリアス
   - vim=vi
   - python=python3

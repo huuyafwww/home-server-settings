@@ -1,2 +1,2 @@
 # グローバルIPが変わったらLINEに通知する
-*/5 * * * * source /root/.env.ex && /root/home-server-settings/ip_notification.sh
+*/5 * * * * source /root/.env.ex && /root/home-server-settings/notify_to_line_on_change_ip_address.sh

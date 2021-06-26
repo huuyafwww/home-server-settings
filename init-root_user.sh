@@ -58,9 +58,13 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && echo "export LANG=en_US" >> ${HOME}/.bashrc \
 && echo "source ${HOME}/.env.ex" >> ${HOME}/.bashrc \
 && source ${HOME}/.bashrc \
+&& yum update -y \
 && git clone https://github.com/huuyafwww/home-server-settings.git \
 && cd home-server-settings \
-&& crontab init-crontab \
 && chmod u+x ./init-login_user.sh \
 && ./init-login_user.sh \
-&& yum update
+&& chmod u+x ./init-env.sh \
+&& ./init-env.sh \
+&& chmod u+x ./notify_to_line_on_change_ip_address.sh \
+&& crontab init-crontab \
+&& echo "セットアップ完了！"
