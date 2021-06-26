@@ -14,6 +14,7 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
     wget \
     https://centos7.iuscommunity.org/ius-release.rpm \
     https://repo.ius.io/ius-release-el7.rpm \
+    https://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm \
     gettext-devel \
     openssl-devel \
     perl-CPAN \
@@ -36,6 +37,9 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
     python36u-libs \
     python36u-devel \
     python36u-pip \
+    ffmpeg \
+    ffmpeg-devel \
+&& yum install -y jq --enablerepo=epel \
 && yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo \
 && yum makecache fast \
 && yum install -y docker-ce \
@@ -58,4 +62,5 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && cd home-server-settings \
 && crontab init-crontab \
 && chmod u+x ./init-login_user.sh \
-&& ./init-login_user.sh
+&& ./init-login_user.sh \
+&& yum update
