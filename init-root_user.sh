@@ -51,13 +51,12 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && systemctl enable nginx \
 && python3.6 -m pip install --upgrade pip \
 && npm install -g yarn \
-&& touch .env.ex \
+&& touch ${HOME}/.env.ex \
 && echo "alias vim='vi'" >> ${HOME}/.bashrc \
 && echo "alias python='`which python3`'" >> ${HOME}/.bashrc \
 && echo "alias pip='`which pip3`'" >> ${HOME}/.bashrc \
 && echo "export LANG=en_US" >> ${HOME}/.bashrc \
 && echo "source ${HOME}/.env.ex" >> ${HOME}/.bashrc \
-&& source ${HOME}/.bashrc \
 && yum update -y \
 && git clone https://github.com/huuyafwww/home-server-settings.git \
 && cd ${HOME}/home-server-settings \
@@ -67,4 +66,5 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && ./init-env.sh \
 && chmod u+x ./notify_to_line_on_change_ip_address.sh \
 && crontab init-crontab \
+&& source ${HOME}/.bashrc \
 && echo "セットアップ完了！"

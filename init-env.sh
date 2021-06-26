@@ -25,6 +25,6 @@ do
   echo "有効なアクセストークンではありません";
 done
 
-echo "LINE_ACCESS_TOKEN=${access_token}" >> ${HOME}/.env.ex;
+echo "export LINE_ACCESS_TOKEN=${access_token}" >> ${HOME}/.env.ex;
 
 echo "完了！";
