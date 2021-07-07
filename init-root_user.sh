@@ -52,7 +52,7 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && python3.6 -m pip install --upgrade pip \
 && npm install -g yarn \
 && touch ${HOME}/.env.ex \
-&& echo "alias vim='vi'" >> ${HOME}/.bashrc \
+&& echo "alias vim='`which vi`'" >> ${HOME}/.bashrc \
 && echo "alias python='`which python3`'" >> ${HOME}/.bashrc \
 && echo "alias pip='`which pip3`'" >> ${HOME}/.bashrc \
 && echo "export LANG=en_US" >> ${HOME}/.bashrc \
