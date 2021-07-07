@@ -68,4 +68,6 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && chmod u+x ./notify_to_line_on_change_ip_address.sh \
 && crontab init-crontab \
 && source ${HOME}/.bashrc \
-&& echo "セットアップ完了！"
+&& echo "セットアップ完了！" \
+&& echo "5秒後に再起動します..." \
+&& reboot
