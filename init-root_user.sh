@@ -38,8 +38,7 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
     python36u-pip \
     ffmpeg \
     ffmpeg-devel \
-    certbot \
-    python3-certbot-nginx \
+    nss-tools \
     fail2ban \
 && yum groupinstall -y "Development Tools" \
 && yum install -y jq --enablerepo=epel \
@@ -50,8 +49,8 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && curl -L "https://github.com/docker/compose/releases/download/${latest_compose_version}/docker-compose-`uname -s`-`uname -m`" -o /usr/local/bin/docker-compose \
 && chmod +x /usr/local/bin/docker-compose \
 && firewall-cmd --add-service=http --zone=public --permanent \
+&& firewall-cmd --add-service=https --zone=public --permanent \
 && firewall-cmd --reload \
-&& systemctl start nginx \
 && systemctl enable nginx \
 && systemctl enable firewalld \
 && systemctl enable fail2ban \
@@ -67,8 +66,6 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && git clone https://github.com/huuyafwww/home-server-settings.git \
 && cd ${HOME}/home-server-settings \
 && cp ./jail.conf /etc/fail2ban/jail.d/jail.local \
-&& systemctl start firewalld \
-&& systemctl start fail2ban \
 && chmod u+x ./init-login_user.sh \
 && ./init-login_user.sh \
 && chmod u+x ./init-env.sh \
@@ -76,6 +73,9 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && chmod u+x ./notify_to_line_on_change_ip_address.sh \
 && crontab init-crontab \
 && curl -s ifconfig.io > /tmp/gobal_ipaddress \
+&& systemctl start nginx \
+&& systemctl start firewalld \
+&& systemctl start fail2ban \
 && source ${HOME}/.bashrc \
 && echo "セットアップ完了！" \
 && echo "5秒後に再起動します..." \

@@ -1,3 +1,7 @@
+# Create Environments.
+
+source ${HOME}/home-server-settings/.env;
+
 
 #### LINEアクセストークン設定
 
@@ -26,5 +30,40 @@ do
 done
 
 echo "export LINE_ACCESS_TOKEN=${access_token}" >> ${HOME}/.env.ex;
+
+echo "完了！";
+
+#### SSL化設定
+
+mkcert --install;
+
+while true
+do
+  echo -n "ドメインを入力: ";
+  read domain;
+  echo -n "${domain}で証明書を発行しますか？(y or n)";
+  read canContinue;
+  echo $'\n';
+  if [ "`echo ${canContinue}`" = "y" ]; then
+    break;
+  fi
+done
+
+domains=${domain};
+
+echo -n "ワイルドカード証明書を発行しますか？(y or n)";
+read doWildCard;
+
+if [ "`echo ${doWildCard}`" = "y" ]; then
+    domains+=" *.${domain}";
+fi
+
+mkcert ${domains};
+
+mkdir -r ${CERTICATE_DIRECTORY};
+
+mkcert -cert-file ${PUBLIC_SSL_CERTICATE_FILE} -key-file ${PRIVATE_SSL_CERTICATE_FILE} ${domain};
+
+echo "export HOST=${domain}" >> ${HOME}/.env.ex;
 
 echo "完了！";
