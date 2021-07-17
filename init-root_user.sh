@@ -65,7 +65,7 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && yum update -y \
 && git clone https://github.com/huuyafwww/home-server-settings.git \
 && cd ${HOME}/home-server-settings \
-&& cp ./jail.conf /etc/fail2ban/jail.d/jail.local \
+&& cp ./conf/fail2ban/jail.conf /etc/fail2ban/jail.d/jail.local \
 && chmod u+x ./init-login_user.sh \
 && ./init-login_user.sh \
 && chmod u+x ./init-env.sh \

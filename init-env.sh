@@ -64,6 +64,23 @@ mkdir -r ${CERTICATE_DIRECTORY};
 
 mkcert -cert-file ${PUBLIC_SSL_CERTICATE_FILE} -key-file ${PRIVATE_SSL_CERTICATE_FILE} ${domain};
 
+tmp_conf_file=${HOME}/home-server-settings/conf/nginx/nginx.conf
+tmp_default_conf_file=${HOME}/home-server-settings/conf/nginx/conf/default.conf
+
+##### IP制限設定
+cat ${tmp_conf_file} | sed s/IP_ADDRESS/`curl -s ifconfig.io`/ > ${tmp_conf_file}
+
+##### SSL証明書パス設定
+cat ${tmp_conf_file} | sed s/SSL_CERTIFICATE_KEY/${PRIVATE_SSL_CERTICATE_FILE}/ > ${tmp_conf_file}
+cat ${tmp_conf_file} | sed s/SSL_CERTIFICATE/${PUBLIC_SSL_CERTICATE_FILE}/ > ${tmp_conf_file}
+
+##### ホスト設定
+cat ${tmp_conf_file} | sed s/HOST/${domain}/g > ${tmp_conf_file}
+cat ${tmp_default_conf_file} | sed s/HOST/${domain}/ > ${tmp_default_conf_file}
+
+cp -f ${tmp_conf_file} /etc/nginx/nginx.conf
+cp -f ${tmp_default_conf_file} /etc/nginx/conf.d/default.conf
+
 echo "export HOST=${domain}" >> ${HOME}/.env.ex;
 
 echo "完了！";
