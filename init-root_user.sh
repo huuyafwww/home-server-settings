@@ -8,7 +8,6 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && curl -sL https://rpm.nodesource.com/setup_14.x | bash - \
 && curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | tee /etc/yum.repos.d/yarn.repo \
 && rpm --import https://dl.yarnpkg.com/rpm/pubkey.gpg \
-&& yum groupinstall -y "Development Tools" \
 && yum localinstall -y http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm \
 && yum install -y \
     wget \
@@ -39,6 +38,10 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
     python36u-pip \
     ffmpeg \
     ffmpeg-devel \
+    certbot \
+    python3-certbot-nginx \
+    fail2ban \
+&& yum groupinstall -y "Development Tools" \
 && yum install -y jq --enablerepo=epel \
 && yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo \
 && yum makecache fast \
@@ -50,6 +53,8 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && firewall-cmd --reload \
 && systemctl start nginx \
 && systemctl enable nginx \
+&& systemctl enable firewalld \
+&& systemctl enable fail2ban \
 && python3.6 -m pip install --upgrade pip \
 && npm install -g yarn \
 && touch ${HOME}/.env.ex \
@@ -61,6 +66,9 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && yum update -y \
 && git clone https://github.com/huuyafwww/home-server-settings.git \
 && cd ${HOME}/home-server-settings \
+&& cp ./jail.conf /etc/fail2ban/jail.d/jail.local \
+&& systemctl start firewalld \
+&& systemctl start fail2ban \
 && chmod u+x ./init-login_user.sh \
 && ./init-login_user.sh \
 && chmod u+x ./init-env.sh \
