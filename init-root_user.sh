@@ -13,6 +13,7 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
     https://centos7.iuscommunity.org/ius-release.rpm \
     https://repo.ius.io/ius-release-el7.rpm \
     https://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm \
+    centos-release-scl \
     gettext-devel \
     openssl-devel \
     perl-CPAN \
