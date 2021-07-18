@@ -10,7 +10,6 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && rpm --import https://dl.yarnpkg.com/rpm/pubkey.gpg \
 && yum localinstall -y http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm \
 && yum install -y \
-    wget \
     https://centos7.iuscommunity.org/ius-release.rpm \
     https://repo.ius.io/ius-release-el7.rpm \
     https://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm \
@@ -23,6 +22,7 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
     pam-devel \
     rpm-build \
     epel-release \
+    wget \
     nginx \
     git \
     yum-utils \

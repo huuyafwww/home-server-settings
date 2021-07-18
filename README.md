@@ -1,15 +1,15 @@
-# 【自分専用】CentOS7インストール後環境構築スクリプト
+## CentOS7インストール後環境構築スクリプト
 
 自宅サーバで利用しています。
 
-## メモ
+### メモ
 
 Proxmox VEのVMにCentOS7をインストールした後に、
 VNCからinit-root_user.shをペーストして実行。
 
-## 環境
+### 環境
 
-### インストール
+#### インストール
 
 - nginx
 - mysql
@@ -24,11 +24,12 @@ VNCからinit-root_user.shをペーストして実行。
 - ffmpeg
 - jq
 - wget
+- fail2ban
 
-### その他
+#### その他
 
 - 後々インストールしそうなdevelパッケージを予め入れておく
-- publicゾーンで80番ポートを開く
+- publicゾーンで80,443番ポートを開く
 - Nginx自動起動
 - システム言語をen_USに変更（TZはデフォルトでJST
 - 自宅IP変更されたらLINEに通知するスクリプトをcronに登録
@@ -38,3 +39,10 @@ VNCからinit-root_user.shをペーストして実行。
   - python=python3
   - pip=pip3
 - SSH用のディレクトリと空の鍵ファイルを権限付きで作成（ログインユーザのみ
+- fail2ban
+  - SSHの不正アクセス防止
+- SSL
+  - mkcertで自己証明書作成
+- Nginx
+  - IP制限設定
+  - 自己証明書ファイル設定
