@@ -52,19 +52,20 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && firewall-cmd --add-service=http --zone=public --permanent \
 && firewall-cmd --add-service=https --zone=public --permanent \
 && firewall-cmd --reload \
-&& systemctl enable nginx \
-&& systemctl enable firewalld \
-&& systemctl enable fail2ban \
+&& systemctl enable \
+    nginx \
+    firewalld \
+    fail2ban \
+    mysqld \
 && systemctl start mysqld \
-&& systemctl enable mysqld \
 && python3.6 -m pip install --upgrade pip \
 && npm install -g yarn \
 && touch ${HOME}/.env.ex \
-&& echo "alias vim='`which vi`'" >> ${HOME}/.bashrc \
-&& echo "alias python='`which python3`'" >> ${HOME}/.bashrc \
-&& echo "alias pip='`which pip3`'" >> ${HOME}/.bashrc \
-&& echo "export LANG=en_US" >> ${HOME}/.bashrc \
-&& echo "source ${HOME}/.env.ex" >> ${HOME}/.bashrc \
+&& echo "alias vim='`which vi`'
+alias python='`which python3`'
+alias pip='`which pip3`'
+export LANG=en_US
+source ${HOME}/.env.ex" >> ${HOME}/.bashrc \
 && yum update -y \
 && git clone https://github.com/huuyafwww/home-server-settings.git \
 && cd ${HOME}/home-server-settings \
@@ -75,10 +76,10 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && ./init-env.sh \
 && chmod u+x ./notify_to_line_on_change_ip_address.sh \
 && crontab init-crontab \
-&& curl -s ifconfig.io > /tmp/gobal_ipaddress \
-&& systemctl start nginx \
-&& systemctl start firewalld \
-&& systemctl start fail2ban \
+&& systemctl start \
+    nginx \
+    firewalld \
+    fail2ban \
 && source ${HOME}/.bashrc \
 && echo "セットアップ完了！" \
 && echo "5秒後に再起動します..." \
