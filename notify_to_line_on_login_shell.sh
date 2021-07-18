@@ -2,7 +2,14 @@
 
 line_notify(){
   referrer_ipaddress=${!1};
-  message="shellにログインしました：${referrer_ipaddress}";
+  country=${!2};
+  region=${!3};
+  city=${!4};
+  message="shellにログインしました
+ip_address：${referrer_ipaddress}
+country：${country}
+region：${region}
+city：${city}";
   curl "https://notify-api.line.me/api/notify" \
     -s \
     -XPOST \
@@ -57,8 +64,15 @@ if [ ${?} -eq 1 ]; then
   exit;
 fi
 
-# shellにログインしたIPアドレスをLINEに通知する
-line_notify referrer_ipaddress;
+# アクセス元のIPアドレス情報記録
+curl -s http://ip-api.com/json/${referrer_ipaddress}?lang=ja > /tmp/referrer_ipaddress_info.json
+
+country=`cat /tmp/referrer_ipaddress_info.json | jq .country | sed -e 's/"//g'`
+regionName=`cat /tmp/referrer_ipaddress_info.json | jq .regionName | sed -e 's/"//g'`
+city=`cat /tmp/referrer_ipaddress_info.json | jq .city | sed -e 's/"//g'`
+
+# shellにログインしたIPアドレス情報をLINEに通知する
+line_notify referrer_ipaddress country regionName city;
 
 # リファラIPアドレスを記録する
 record_last_referrer_ipaddress referrer_ipaddress;
