@@ -55,6 +55,8 @@ enabled=1" > /etc/yum.repos.d/nginx.repo \
 && systemctl enable nginx \
 && systemctl enable firewalld \
 && systemctl enable fail2ban \
+&& systemctl start mysqld \
+&& systemctl enable mysqld \
 && python3.6 -m pip install --upgrade pip \
 && npm install -g yarn \
 && touch ${HOME}/.env.ex \

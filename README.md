@@ -30,7 +30,10 @@ VNCからinit-root_user.shをペーストして実行。
 
 - 後々インストールしそうなdevelパッケージを予め入れておく
 - publicゾーンで80,443番ポートを開く
-- Nginx自動起動
+- 自動起動
+  - nginx
+  - mysql
+  - fail2ban
 - システム言語をen_USに変更（TZはデフォルトでJST
 - 自宅IP変更されたらLINEに通知するスクリプトをcronに登録
 - LINE Notify APIを利用するためのアクセストークン設定（入力値がアクセストークンとして有効なものか検証
@@ -46,3 +49,6 @@ VNCからinit-root_user.shをペーストして実行。
 - Nginx
   - IP制限設定
   - 自己証明書ファイル設定
+- MySQL
+  - 初期パスワード変更設定
+  - デフォルトのextra-file出力
