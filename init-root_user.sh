@@ -70,10 +70,10 @@ source ${HOME}/.env.ex" >> ${HOME}/.bashrc \
 && git clone https://github.com/huuyafwww/home-server-settings.git \
 && cd ${HOME}/home-server-settings \
 && cp ./conf/fail2ban/jail.conf /etc/fail2ban/jail.d/jail.local \
-&& chmod u+x ./init-login_user.sh \
-&& ./init-login_user.sh \
 && chmod u+x ./init-env.sh \
 && ./init-env.sh \
+&& chmod u+x ./init-login_user.sh \
+&& ./init-login_user.sh \
 && chmod u+x ./notify_to_line_on_change_ip_address.sh \
 && crontab init-crontab \
 && systemctl start \

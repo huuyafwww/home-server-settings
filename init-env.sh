@@ -70,9 +70,9 @@ nginx_conf_file=${HOME}/home-server-settings/conf/nginx/nginx.conf
 nginx_default_conf_file=${HOME}/home-server-settings/conf/nginx/conf/default.conf
 
 ##### IP制限設定
-gobal_ipaddress=`curl -s ifconfig.io`;
-cat ${nginx_conf_file} | sed s/IP_ADDRESS/${gobal_ipaddress}/ > ${nginx_conf_file};
-echo ${gobal_ipaddress} > /tmp/gobal_ipaddress;
+global_ipaddress=`curl -s ifconfig.io`;
+cat ${nginx_conf_file} | sed s/IP_ADDRESS/${global_ipaddress}/ > ${nginx_conf_file};
+echo ${global_ipaddress} > /tmp/global_ipaddress;
 
 ##### SSL証明書パス設定
 cat ${nginx_conf_file} | sed s/SSL_CERTIFICATE_KEY/${PRIVATE_SSL_CERTICATE_FILE}/ > ${nginx_conf_file};
@@ -122,3 +122,6 @@ echo "完了！";
 
 ##### プライベートIPアドレス
 echo "export PRIVATE_IP_ADDRESS=`hostname -I`" >> ${HOME}/.env.ex;
+
+##### リファラIPアドレス記録
+echo ${SSH_CLIENT} | cut -f1 -d' ' > /tmp/referrer_ipaddress;

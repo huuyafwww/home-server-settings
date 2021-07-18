@@ -4,6 +4,7 @@ line_notify(){
   new_ipaddress=${!1};
   message="IPアドレスが変わりました。${new_ipaddress}";
   curl "https://notify-api.line.me/api/notify" \
+    -s \
     -XPOST \
     --header "Authorization: Bearer ${LINE_ACCESS_TOKEN}" \
     --form "message=${message}" \
@@ -12,14 +13,14 @@ line_notify(){
 
 record_new_ipaddress(){
   new_ipaddress=${!1};
-  echo ${new_ipaddress} > /tmp/gobal_ipaddress;
+  echo ${new_ipaddress} > /tmp/global_ipaddress;
 };
 
 new_ipaddress=`curl -s ifconfig.io`;
-gobal_ipaddress=`cat /tmp/gobal_ipaddress`;
+global_ipaddress=`cat /tmp/global_ipaddress`;
 
 # IPアドレスが変わっていない場合は終了
-if [ ${new_ipaddress} == ${gobal_ipaddress} ]; then
+if [ ${new_ipaddress} == ${global_ipaddress} ]; then
   exit;
 fi
 
